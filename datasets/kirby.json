@@ -1,0 +1,50 @@
+{
+  "franchise": "Kirby",
+  "concept": "Bibliothèque d'univers récurrents à travers les jeux Kirby (noms variables selon les épisodes).",
+  "univers_possibles": {
+    "nature_et_exploration": [
+      "Prairies / collines verdoyantes",
+      "Forêts & jungles",
+      "Grottes / mines / souterrains",
+      "Montagnes / falaises / canyons",
+      "Déserts / dunes / temples enfouis",
+      "Océan / plages / îles",
+      "Underwater / récifs / fonds marins",
+      "Marais / zones toxiques",
+      "Neige / banquise / glaciers",
+      "Volcans / lave / monde du feu"
+    ],
+    "ciel_espace_et_vertige": [
+      "Ciel / nuages / îles flottantes",
+      "Orages / tempêtes / vents violents",
+      "Espace / étoiles / planètes",
+      "Stations spatiales / vaisseaux / bases orbitales"
+    ],
+    "civilisation_et_industrie": [
+      "Villes (parfois abandonnées)",
+      "Parcs d’attractions / carnaval",
+      "Châteaux / forteresses",
+      "Ruines antiques / civilisations perdues",
+      "Usines / chaînes de production / complexes mécaniques",
+      "Laboratoires / zones high-tech",
+      "Univers cyber / futuriste"
+    ],
+    "ambiance_et_emotion": [
+      "Bibliothèques / musées / lieux culturels",
+      "Jouets / mini-mondes / dioramas",
+      "Monde sucré / nourriture / bonbons",
+      "Jardins féeriques / serres lumineuses",
+      "Théâtre / opéra / scène et coulisses",
+      "Horloge géante / mécanique du temps / pendules",
+      "Rêves pastel / nuages cotonneux / monde onirique",
+      "Fête foraine nocturne / néons doux / ambiance chill"
+    ],
+    "cosmique_et_dimensionnel": [
+      "Mondes miroir / reflets / doubles",
+      "Royaumes de l’ombre / dark world",
+      "Dimensions alternatives / type Another Dimension",
+      "Réalités oniriques / astrales / cauchemars",
+      "Royaumes divins / entités cosmiques (logique endgame)"
+    ]
+  }
+}
