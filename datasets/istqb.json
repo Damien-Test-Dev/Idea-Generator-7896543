@@ -1,0 +1,756 @@
+{
+  "cadre": {
+    "certification": "ISTQB Certified Tester Foundation Level (CTFL)",
+    "version_syllabus": "v4.0 (FR)",
+    "structure": "chapitre -> theme -> notions_cles"
+  },
+  "chapitres": [
+    {
+      "id": "1",
+      "titre": "Fondamentaux des tests",
+      "themes": [
+        {
+          "id": "1.1",
+          "titre": "Qu'est-ce que le test ?",
+          "notions_cles": [
+            "Test = activité de contrôle qualité orientée information + réduction des risques",
+            "Test dynamique vs test statique (exécution vs revue/analyse)",
+            "Objectif: détecter des défauts et évaluer la qualité par rapport à une base de test"
+          ]
+        },
+        {
+          "id": "1.1.1",
+          "titre": "Objectifs du test",
+          "notions_cles": [
+            "Détecter des défauts / défaillances et contribuer à leur prévention",
+            "Fournir une information fiable sur la qualité et la couverture des exigences",
+            "Renforcer la confiance et soutenir la prise de décision (go/no-go)"
+          ]
+        },
+        {
+          "id": "1.1.2",
+          "titre": "Test et débogage",
+          "notions_cles": [
+            "Tester = mettre en évidence des problèmes (ou leur absence dans un périmètre)",
+            "Déboguer = diagnostiquer et corriger la cause d’un défaut",
+            "Séparation des responsabilités, mais collaboration test/dev essentielle"
+          ]
+        },
+        {
+          "id": "1.2",
+          "titre": "Pourquoi est-il nécessaire de tester ?",
+          "notions_cles": [
+            "Réduction du risque (produit, projet, conformité, sécurité)",
+            "Détection précoce = baisse du coût de correction",
+            "Qualité perçue et satisfaction utilisateur"
+          ]
+        },
+        {
+          "id": "1.2.1",
+          "titre": "Contributions du test au succès",
+          "notions_cles": [
+            "Prévenir incidents en production (fiabilité, sécurité, conformité)",
+            "Mesurer et rendre visible la qualité (indicateurs, rapports)",
+            "Protéger la valeur business (image, revenus, continuité)"
+          ]
+        },
+        {
+          "id": "1.2.2",
+          "titre": "Test et assurance qualité",
+          "notions_cles": [
+            "QC (test) = détecter des défauts sur des produits d’activités",
+            "QA = prévention, amélioration des processus et standards",
+            "Complémentarité: QA réduit l’arrivée de défauts, QC les détecte"
+          ]
+        },
+        {
+          "id": "1.2.3",
+          "titre": "Erreurs, défauts, défaillances et causes racine",
+          "notions_cles": [
+            "Erreur (humaine) -> Défaut (dans un artefact) -> Défaillance (comportement observable)",
+            "Cause racine = origine profonde à traiter pour éviter la récidive",
+            "Analyse cause racine + actions correctives/préventives"
+          ]
+        },
+        {
+          "id": "1.3",
+          "titre": "Principes du test",
+          "notions_cles": [
+            "Le test montre la présence de défauts, pas leur absence",
+            "Test exhaustif impossible: priorité au risque",
+            "Tester tôt + paradoxe du pesticide + regroupement des défauts + dépendance au contexte + 'absence d'erreurs' ≠ produit utile"
+          ]
+        },
+        {
+          "id": "1.4",
+          "titre": "Activités de test, testware et rôles dans le test",
+          "notions_cles": [
+            "Activités: planification, analyse, conception, implémentation, exécution, clôture",
+            "Pilotage/contrôle en continu (suivi, ajustements)",
+            "Rôles et responsabilités définis (dev, test, produit, management)"
+          ]
+        },
+        {
+          "id": "1.4.1",
+          "titre": "Activités et tâches de test",
+          "notions_cles": [
+            "Planification (stratégie, ressources, critères, risques)",
+            "Analyse & conception (conditions, cas, données, oracle)",
+            "Exécution & clôture (logs, preuves, rapports, leçons apprises)"
+          ]
+        },
+        {
+          "id": "1.4.2",
+          "titre": "Le processus de test selon le contexte",
+          "notions_cles": [
+            "Adapter les tests au cycle de vie, au risque, au produit et aux contraintes",
+            "Équilibrer couverture, temps, coût et valeur",
+            "Approche pragmatique: ce qui est testable et prioritaire"
+          ]
+        },
+        {
+          "id": "1.4.3",
+          "titre": "Testware",
+          "notions_cles": [
+            "Artefacts de test: plans, cas, scénarios/scripts, données, checklists, charters",
+            "Évidence/traçabilité comme actifs de gouvernance",
+            "Maintenance du testware au fil des changements"
+          ]
+        },
+        {
+          "id": "1.4.4",
+          "titre": "Traçabilité entre base de test et testware",
+          "notions_cles": [
+            "Base de test = exigences, user stories, modèles, risques, code, etc.",
+            "Traçabilité = couverture + impact analysis + conformité",
+            "Support clé pour audits et gestion de régression"
+          ]
+        },
+        {
+          "id": "1.4.5",
+          "titre": "Rôles dans le test",
+          "notions_cles": [
+            "Responsabilités typiques: testeur, lead, manager, dev, PO/BA",
+            "Communication et alignement avec les parties prenantes",
+            "Indépendance du test = levier, pas dogme"
+          ]
+        },
+        {
+          "id": "1.5",
+          "titre": "Compétences essentielles et bonnes pratiques en matière de test",
+          "notions_cles": [
+            "Compétences techniques + soft skills",
+            "Approche équipe intégrée (whole team)",
+            "Indépendance du test: bénéfices et limites"
+          ]
+        },
+        {
+          "id": "1.5.1",
+          "titre": "Compétences génériques requises pour le test",
+          "notions_cles": [
+            "Pensée critique, curiosité, sens du détail, esprit de synthèse",
+            "Communication, négociation, gestion du conflit",
+            "Orientation risque / valeur et capacité à prioriser"
+          ]
+        },
+        {
+          "id": "1.5.2",
+          "titre": "Approche équipe intégrée",
+          "notions_cles": [
+            "Qualité portée par toute l’équipe, pas uniquement par les testeurs",
+            "Collaboration dès la définition des exigences/AC",
+            "Feedback rapide et partagé (ex: BDD/ATDD, revues, pairing)"
+          ]
+        },
+        {
+          "id": "1.5.3",
+          "titre": "Indépendance du test",
+          "notions_cles": [
+            "Avantages: objectivité, biais réduit, focus qualité",
+            "Inconvénients: distance du contexte, goulots d’étranglement potentiels",
+            "Modèles: auto-test dev, QA embedded, équipe indépendante, hybrid"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "2",
+      "titre": "Tester tout au long du cycle de vie du développement logiciel",
+      "themes": [
+        {
+          "id": "2.1",
+          "titre": "Tester dans le contexte d'un cycle de vie du développement logiciel",
+          "notions_cles": [
+            "Alignement test avec SDLC (waterfall, itératif, agile, DevOps)",
+            "Test précoce (shift-left) et feedback continu",
+            "Approches pilotées par les tests (TDD/ATDD/BDD)"
+          ]
+        },
+        {
+          "id": "2.1.1",
+          "titre": "Impact du cycle de vie du développement logiciel sur le test",
+          "notions_cles": [
+            "Organisation des niveaux de test selon le modèle de dev",
+            "Planification et traçabilité influencées par le cycle de vie",
+            "Synchronisation test/dev pour réduire les boucles de rework"
+          ]
+        },
+        {
+          "id": "2.1.2",
+          "titre": "Cycle de vie du développement logiciel et bonnes pratiques de test",
+          "notions_cles": [
+            "Test précoce et implication des testeurs sur artefacts amont",
+            "Activités de test correspondantes à chaque activité de dev",
+            "Prévention via revues + définition claire des critères"
+          ]
+        },
+        {
+          "id": "2.1.3",
+          "titre": "Le test en tant que moteur du développement de logiciels",
+          "notions_cles": [
+            "TDD: tests guident le code (design, régression)",
+            "BDD: spécification exécutable centrée sur le comportement",
+            "ATDD: tests d’acceptation co-construits (business/dev/test)"
+          ]
+        },
+        {
+          "id": "2.1.4",
+          "titre": "DevOps et tests",
+          "notions_cles": [
+            "CI/CD: tests automatisés intégrés au pipeline",
+            "Monitoring/observabilité comme extension de la qualité en prod",
+            "Stratégie de test orientée flux, rapidité et fiabilité"
+          ]
+        },
+        {
+          "id": "2.1.5",
+          "titre": "Approche shift left",
+          "notions_cles": [
+            "Déplacer la détection au plus tôt (revues, tests unitaires, statiques)",
+            "Réduire le coût de correction et accélérer le feedback",
+            "Pré-requis: collaboration, outillage, critères clairs"
+          ]
+        },
+        {
+          "id": "2.1.6",
+          "titre": "Rétrospectives et amélioration de processus",
+          "notions_cles": [
+            "Boucle d’amélioration continue (actions concrètes, suivies)",
+            "Apprentissage: incidents, causes racines, dettes de test",
+            "Mesures: lead time qualité, taux d’échappement, stabilité"
+          ]
+        },
+        {
+          "id": "2.2",
+          "titre": "Niveaux de test et types de test",
+          "notions_cles": [
+            "Niveaux = où et sur quoi on teste (composant -> acceptation)",
+            "Types = quoi on teste (fonctionnel, non-fonctionnel, structurel, changement)",
+            "Cohérence: objectifs, base de test, critères d’entrée/sortie"
+          ]
+        },
+        {
+          "id": "2.2.1",
+          "titre": "Niveaux de test",
+          "notions_cles": [
+            "Test composant (souvent dev) et intégration de composants",
+            "Test système et intégration de systèmes (interfaces, flux)",
+            "Test d’acceptation (besoin utilisateur, valeur business)"
+          ]
+        },
+        {
+          "id": "2.2.2",
+          "titre": "Types de test",
+          "notions_cles": [
+            "Fonctionnel: comportements attendus",
+            "Non-fonctionnel: perf, sécurité, utilisabilité, fiabilité, etc.",
+            "Structurel: couverture du code/structure (ex: instructions/branches)"
+          ]
+        },
+        {
+          "id": "2.2.3",
+          "titre": "Test de confirmation et test de régression",
+          "notions_cles": [
+            "Confirmation (retest) = vérifier la correction d’un défaut",
+            "Régression = vérifier l’absence d’effets de bord",
+            "Sélection des régressions guidée par l’impact et le risque"
+          ]
+        },
+        {
+          "id": "2.3",
+          "titre": "Test de maintenance",
+          "notions_cles": [
+            "Déclencheurs: correction, évolution, migration, retrait, patch",
+            "Régression et tests de confirmation critiques",
+            "Analyse d’impact + gestion de configuration indispensables"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "3",
+      "titre": "Test statique",
+      "themes": [
+        {
+          "id": "3.1",
+          "titre": "Bases du test statique",
+          "notions_cles": [
+            "Test statique = sans exécution (revues, analyse statique)",
+            "Détecte des défauts tôt et améliore la compréhension partagée",
+            "Complémentaire du test dynamique"
+          ]
+        },
+        {
+          "id": "3.1.1",
+          "titre": "Produits d'activités examinables par le test statique",
+          "notions_cles": [
+            "Exigences, user stories, spécifications, modèles",
+            "Code et scripts, configuration, pipeline",
+            "Testware et documentation (plans, cas, données)"
+          ]
+        },
+        {
+          "id": "3.1.2",
+          "titre": "Valeur du test statique",
+          "notions_cles": [
+            "Détection précoce = coûts réduits",
+            "Prévention via clarification et alignement",
+            "Amélioration de la maintenabilité et de la conformité"
+          ]
+        },
+        {
+          "id": "3.1.3",
+          "titre": "Différences entre le test statique et le test dynamique",
+          "notions_cles": [
+            "Statique: défauts dans l’artefact ; Dynamique: défaillances à l’exécution",
+            "Statique possible très tôt ; Dynamique nécessite un exécutable",
+            "Couverture et preuves différentes, mais complémentaires"
+          ]
+        },
+        {
+          "id": "3.2",
+          "titre": "Processus de feedback et de revue",
+          "notions_cles": [
+            "Revues = mécanisme formel/informel de détection et d’alignement",
+            "Feedback précoce et fréquent pour réduire le rework",
+            "Rôles, activités et facteurs de succès structurent l’efficacité"
+          ]
+        },
+        {
+          "id": "3.2.1",
+          "titre": "Bénéfices d'un feedback précoce et fréquent des parties prenantes",
+          "notions_cles": [
+            "Réduit ambiguïtés et défauts d’exigences",
+            "Accélère les décisions et la convergence",
+            "Limite le coût des changements tardifs"
+          ]
+        },
+        {
+          "id": "3.2.2",
+          "titre": "Activités du processus de revue",
+          "notions_cles": [
+            "Planification + préparation",
+            "Revue (individuelle puis consolidation) + analyse",
+            "Correction + suivi (closure)"
+          ]
+        },
+        {
+          "id": "3.2.3",
+          "titre": "Rôles et responsabilités dans les revues",
+          "notions_cles": [
+            "Auteur, réviseurs, modérateur/facilitateur, scribe, décideur",
+            "Objectif: détecter des défauts, pas juger les personnes",
+            "Gestion du timebox et du scope"
+          ]
+        },
+        {
+          "id": "3.2.4",
+          "titre": "Types de revues",
+          "notions_cles": [
+            "Revue informelle / walkthrough",
+            "Revue technique",
+            "Inspection (plus formalisée)"
+          ]
+        },
+        {
+          "id": "3.2.5",
+          "titre": "Facteurs de réussite des revues",
+          "notions_cles": [
+            "Objectifs clairs, critères d’entrée, checklists",
+            "Compétences/formation et culture de feedback",
+            "Outillage et discipline (suivi des actions)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "4",
+      "titre": "Analyse et conception des tests",
+      "themes": [
+        {
+          "id": "4.1",
+          "titre": "Aperçu des techniques de test",
+          "notions_cles": [
+            "Boîte noire (spécification), boîte blanche (structure), expérience",
+            "Choix guidé par risque, contexte, niveau de test",
+            "Objectif: optimiser couverture vs effort"
+          ]
+        },
+        {
+          "id": "4.2",
+          "titre": "Techniques de test boîte noire",
+          "notions_cles": [
+            "Dériver des tests depuis exigences/AC",
+            "Focus comportement externe",
+            "Réduction du nombre de tests via couverture intelligente"
+          ]
+        },
+        {
+          "id": "4.2.1",
+          "titre": "Partitions d'équivalence",
+          "notions_cles": [
+            "Regrouper les entrées en classes valides/invalides",
+            "Tester un représentant par classe (hypothèse d’équivalence)",
+            "Optimiser l’effort tout en conservant une bonne couverture"
+          ]
+        },
+        {
+          "id": "4.2.2",
+          "titre": "Analyse des valeurs limites",
+          "notions_cles": [
+            "Défauts fréquents aux frontières des domaines",
+            "Tester min/max et autour des limites",
+            "Complément naturel des partitions d’équivalence"
+          ]
+        },
+        {
+          "id": "4.2.3",
+          "titre": "Test par tables de décisions",
+          "notions_cles": [
+            "Règles métier = combinaisons conditions/actions",
+            "Couvrir les règles pertinentes (complétude/pertinence)",
+            "Très efficace pour la logique combinatoire"
+          ]
+        },
+        {
+          "id": "4.2.4",
+          "titre": "Test de transition d'état",
+          "notions_cles": [
+            "Système modélisé en états + événements + transitions",
+            "Couvrir transitions, séquences, états invalides",
+            "Utile pour workflows, automates, cycles"
+          ]
+        },
+        {
+          "id": "4.3",
+          "titre": "Techniques de test boîte blanche",
+          "notions_cles": [
+            "Dériver des tests depuis la structure du code",
+            "Mesurer couverture (instructions, branches)",
+            "Support clé pour risques techniques"
+          ]
+        },
+        {
+          "id": "4.3.1",
+          "titre": "Test des instructions et couverture des instructions",
+          "notions_cles": [
+            "Couverture d’instructions = % exécutées",
+            "Identifier zones non testées",
+            "Limite: ne garantit pas couverture des décisions"
+          ]
+        },
+        {
+          "id": "4.3.2",
+          "titre": "Test des branches et couverture des branches",
+          "notions_cles": [
+            "Couverture de branches = % issues de décisions couvertes",
+            "Plus strict que la couverture d’instructions",
+            "Réduit le risque de chemins logiques non validés"
+          ]
+        },
+        {
+          "id": "4.3.3",
+          "titre": "La valeur des tests boîte blanche",
+          "notions_cles": [
+            "Révèle du dead code et des chemins non exercés",
+            "Renforce la robustesse face aux changements",
+            "Complète les tests boîte noire (vision structurelle)"
+          ]
+        },
+        {
+          "id": "4.4",
+          "titre": "Techniques de tests basés sur l'expérience",
+          "notions_cles": [
+            "Capitaliser sur expertise et intuition",
+            "Très utile quand la spécification est incomplète",
+            "Doit rester traçable et piloté (charters, notes)"
+          ]
+        },
+        {
+          "id": "4.4.1",
+          "titre": "Estimation d'erreurs",
+          "notions_cles": [
+            "Anticiper zones fragiles par patterns de défauts",
+            "Utiliser checklists d’erreurs fréquentes",
+            "Complément rapide aux techniques formelles"
+          ]
+        },
+        {
+          "id": "4.4.2",
+          "titre": "Test exploratoire",
+          "notions_cles": [
+            "Conception et exécution en parallèle (apprentissage continu)",
+            "Timeboxing + charters pour cadrer",
+            "Fort levier sur produits nouveaux/risqués"
+          ]
+        },
+        {
+          "id": "4.4.3",
+          "titre": "Test basé sur des checklists",
+          "notions_cles": [
+            "Standardiser la couverture sur des points clés",
+            "Réutiliser les leçons apprises",
+            "Éviter la myopie en faisant évoluer les checklists"
+          ]
+        },
+        {
+          "id": "4.5",
+          "titre": "Approches de test basées sur la collaboration",
+          "notions_cles": [
+            "Aligner business/dev/test sur un langage commun",
+            "Réduire ambiguïtés via exemples concrets",
+            "Accélérer l’acceptation et réduire le churn"
+          ]
+        },
+        {
+          "id": "4.5.1",
+          "titre": "Rédaction collaborative de User Stories",
+          "notions_cles": [
+            "User story = besoin + valeur + persona",
+            "Co-construction (3 amigos) pour clarifier",
+            "Découpage et affinage pour testabilité"
+          ]
+        },
+        {
+          "id": "4.5.2",
+          "titre": "Critères d'acceptation",
+          "notions_cles": [
+            "Définissent le 'Done' et l’oracle métier",
+            "Doivent être testables et non ambigus",
+            "Support direct à l’acceptation et à l’automatisation"
+          ]
+        },
+        {
+          "id": "4.5.3",
+          "titre": "Développement piloté par les tests d'acceptation (ATDD)",
+          "notions_cles": [
+            "Exemples métier -> tests d’acceptation -> dev",
+            "Réduit les malentendus et les retours tardifs",
+            "Améliore la traçabilité et la stabilité fonctionnelle"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "5",
+      "titre": "Gestion des activités de test",
+      "themes": [
+        {
+          "id": "5.1",
+          "titre": "Planification des tests",
+          "notions_cles": [
+            "Stratégie, périmètre, ressources, risques, environnement",
+            "Critères d’entrée/sortie et gouvernance",
+            "Priorisation pour maximiser la valeur"
+          ]
+        },
+        {
+          "id": "5.1.1",
+          "titre": "Objet et contenu d'un plan de test",
+          "notions_cles": [
+            "Définit quoi/comment/quand/qui/pourquoi tester",
+            "Inclut stratégie, risques, métriques, livrables, outillage",
+            "Référence pour pilotage et alignement parties prenantes"
+          ]
+        },
+        {
+          "id": "5.1.2",
+          "titre": "Contribution du testeur à la planification des itérations et des releases",
+          "notions_cles": [
+            "Estimer effort et préparer testware/données/environnements",
+            "Définir la couverture et la stratégie de régression",
+            "Aligner la capacité test avec le flux de livraison"
+          ]
+        },
+        {
+          "id": "5.1.3",
+          "titre": "Critères d'entrée et critères de sortie",
+          "notions_cles": [
+            "Entry: prérequis pour démarrer (artefacts, env, qualité min.)",
+            "Exit: conditions d’arrêt (couverture, défauts, risques)",
+            "Protège du 'test sans fin' et clarifie le go/no-go"
+          ]
+        },
+        {
+          "id": "5.1.4",
+          "titre": "Techniques d'estimation",
+          "notions_cles": [
+            "Estimations basées sur métriques historiques / analogie / expertise",
+            "Décomposition (WBS) et facteurs de complexité",
+            "Recalibrage via pilotage et feedback"
+          ]
+        },
+        {
+          "id": "5.1.5",
+          "titre": "Priorisation des cas de test",
+          "notions_cles": [
+            "Priorité = risque produit + valeur business + criticité",
+            "Optimiser la détection rapide des défauts majeurs",
+            "Support à la stratégie de régression"
+          ]
+        },
+        {
+          "id": "5.1.6",
+          "titre": "Pyramide des tests",
+          "notions_cles": [
+            "Plus de tests bas niveau (rapides) que haut niveau (lents)",
+            "Stabilité et coût: unitaires < intégration < E2E",
+            "Aide à dimensionner l’automatisation"
+          ]
+        },
+        {
+          "id": "5.1.7",
+          "titre": "Les quadrants de tests",
+          "notions_cles": [
+            "Cartographie tests orientés business vs techno",
+            "Support vs critique, manuel vs automatisable",
+            "Aide à équilibrer le portefeuille de tests"
+          ]
+        },
+        {
+          "id": "5.2",
+          "titre": "Gestion des risques",
+          "notions_cles": [
+            "Décider où tester en priorité (approche risk-based)",
+            "Distinguer risques projet vs produit",
+            "Tracer la couverture des risques par les tests"
+          ]
+        },
+        {
+          "id": "5.2.1",
+          "titre": "Définition du risque et attributs du risque",
+          "notions_cles": [
+            "Risque = événement incertain avec impact négatif potentiel",
+            "Attributs clés: probabilité et impact (souvent exposés en matrice)",
+            "Conséquences: priorité test et intensité de couverture"
+          ]
+        },
+        {
+          "id": "5.2.2",
+          "titre": "Risques projet et risques produit",
+          "notions_cles": [
+            "Projet: planning, ressources, scope, dépendances",
+            "Produit: qualité, sécurité, performance, fiabilité, conformité",
+            "Les deux influencent la stratégie de test"
+          ]
+        },
+        {
+          "id": "5.2.3",
+          "titre": "Analyse des risques produits",
+          "notions_cles": [
+            "Identifier et évaluer risques sur features/qualité",
+            "Impliquer parties prenantes (business/tech)",
+            "Résultat: priorités, profondeur, niveaux/types de test"
+          ]
+        },
+        {
+          "id": "5.2.4",
+          "titre": "Contrôle des risques produit",
+          "notions_cles": [
+            "Mitigation via tests ciblés et décisions de release",
+            "Ajuster le plan selon les découvertes (risque résiduel)",
+            "Transparence via reporting risque"
+          ]
+        },
+        {
+          "id": "5.3",
+          "titre": "Pilotage des tests, contrôle des tests et clôture des tests",
+          "notions_cles": [
+            "Monitoring: mesurer l’avancement et la qualité",
+            "Control: ajuster priorités, ressources, scope",
+            "Closure: bilan, archivage, leçons apprises"
+          ]
+        },
+        {
+          "id": "5.3.1",
+          "titre": "Métriques utilisées pour les tests",
+          "notions_cles": [
+            "Couverture (exigences, risques, code) et exécution (pass/fail)",
+            "Défauts (densité, sévérité, taux de réouverture)",
+            "Tendance et prédictibilité (burn-down, stabilité build)"
+          ]
+        },
+        {
+          "id": "5.3.2",
+          "titre": "Objet, contenu et destinataires des rapports de tests",
+          "notions_cles": [
+            "Adapter le reporting aux décideurs (exec, produit, tech)",
+            "Contenu: statut, risques, défauts, blocages, recommandations",
+            "Transparence pour arbitrage scope/qualité/délais"
+          ]
+        },
+        {
+          "id": "5.3.3",
+          "titre": "Communication de l'état d'avancement des tests",
+          "notions_cles": [
+            "Rythme de communication (daily, release, post-mortem)",
+            "Visibilité sur risques et impacts business",
+            "Narratif orienté décision, pas uniquement métriques"
+          ]
+        },
+        {
+          "id": "5.4",
+          "titre": "Gestion de configuration",
+          "notions_cles": [
+            "Identifier et versionner les éléments testés (CI) et les environnements",
+            "Assurer reproductibilité (build, données, config)",
+            "Support à l’analyse d’impact et à la traçabilité"
+          ]
+        },
+        {
+          "id": "5.5",
+          "titre": "Gestion des défauts",
+          "notions_cles": [
+            "Cycle de vie défaut: ouverture, triage, correction, vérification, clôture",
+            "Champs clés: étapes, attendu/obtenu, preuves, environnement",
+            "Priorité vs sévérité et gouvernance (SLA, workflow)"
+          ]
+        }
+      ]
+    },
+    {
+      "id": "6",
+      "titre": "Outils de test",
+      "themes": [
+        {
+          "id": "6.1",
+          "titre": "Les outils pour soutenir les tests",
+          "notions_cles": [
+            "Catégories: gestion tests, gestion exigences, défauts, CI/CD, statique, couverture, perf, automation",
+            "Objectif: accélérer feedback, fiabiliser, tracer",
+            "Choix: besoin, intégration, coût total, compétences"
+          ]
+        },
+        {
+          "id": "6.2",
+          "titre": "Avantages et risques de l'automatisation des tests",
+          "notions_cles": [
+            "Avantages: rapidité, répétabilité, régression fréquente, feedback CI",
+            "Risques: maintenance, flakiness, fausses alertes, dette d’automatisation",
+            "Stratégie: automatiser ce qui est stable/valeur, garder du test exploratoire"
+          ]
+        }
+      ]
+    }
+  ]
+}
