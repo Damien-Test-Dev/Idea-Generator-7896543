@@ -5,11 +5,8 @@ import { flattenKirby, flattenISTQB } from "./flatteners.js";
 import { loadJson, saveJson, remove } from "./storage.js";
 
 const STORAGE_KEY_POOL = "pool:v1";
+const STORAGE_KEY_CONFIG_FINGERPRINT = "config:fingerprint:v1";
 
-/**
- * Charge un JSON depuis un fichier local du repo (GitHub Pages ok).
- * @param {string} path ex: "./datasets/kirby.json"
- */
 async function fetchJson(path) {
   const res = await fetch(path, { cache: "no-store" });
   if (!res.ok) {
@@ -18,11 +15,6 @@ async function fetchJson(path) {
   return res.json();
 }
 
-/**
- * Construit toutes les combinaisons possibles (A×B).
- * @param {Array<any>} a
- * @param {Array<any>} b
- */
 function buildCartesianPool(a, b) {
   const out = [];
   for (const ai of a) {
@@ -34,50 +26,89 @@ function buildCartesianPool(a, b) {
 }
 
 /**
- * Générateur de combos persisté.
- * - Charge Kirby + ISTQB
- * - Flatten
- * - Build pool A×B
- * - Mélange et tire sans répétition
- * - Persiste l'état dans localStorage
+ * Petit "fingerprint" stable pour détecter un changement de config.
+ * Ici on se base sur les chemins + flatteners.
  */
+function computeConfigFingerprint(config) {
+  const env = config?.datasets?.env || {};
+  const topic = config?.datasets?.topic || {};
+  return JSON.stringify({
+    version: config?.version ?? null,
+    env: { path: env.path ?? null, flattener: env.flattener ?? null, id: env.id ?? null },
+    topic: { path: topic.path ?? null, flattener: topic.flattener ?? null, id: topic.id ?? null },
+    output: config?.output ?? null
+  });
+}
+
+function selectFlattener(name) {
+  switch (name) {
+    case "kirby":
+      return flattenKirby;
+    case "istqb":
+      return flattenISTQB;
+    default:
+      throw new Error(`selectFlattener: flattener inconnu "${name}"`);
+  }
+}
+
 export class ComboEngine {
   constructor() {
     this._pool = null;
+    this._config = null;
     this._meta = {
-      version: "1.0.0",
-      datasets: {
-        kirby: "./datasets/kirby.json",
-        istqb: "./datasets/istqb.json"
-      }
+      version: "1.0.0"
     };
   }
 
-  /**
-   * Initialise le moteur.
-   * - Tente de restaurer la pool depuis localStorage
-   * - Sinon, reconstruit la pool depuis les datasets
-   */
   async init() {
-    const saved = loadJson(STORAGE_KEY_POOL);
-    if (saved) {
-      this._pool = RandomPool.fromJSON(saved);
+    // 1) Charger la config
+    this._config = await fetchJson("./config.json");
+
+    // 2) Si la config a changé depuis la dernière fois, on force un rebuild
+    const fingerprint = computeConfigFingerprint(this._config);
+    const savedFingerprint = loadJson(STORAGE_KEY_CONFIG_FINGERPRINT);
+
+    if (!savedFingerprint || savedFingerprint !== fingerprint) {
+      // config changée -> reset complet
+      remove(STORAGE_KEY_POOL);
+      saveJson(STORAGE_KEY_CONFIG_FINGERPRINT, fingerprint);
+      await this.rebuild();
       return;
     }
+
+    // 3) Sinon on tente de restaurer la pool
+    const savedPool = loadJson(STORAGE_KEY_POOL);
+    if (savedPool) {
+      this._pool = RandomPool.fromJSON(savedPool);
+      return;
+    }
+
+    // 4) Fallback: rebuild si rien en storage
     await this.rebuild();
   }
 
-  /**
-   * Reconstruit la pool depuis les datasets (reset complet).
-   */
   async rebuild() {
-    const [kirbyJson, istqbJson] = await Promise.all([
-      fetchJson(this._meta.datasets.kirby),
-      fetchJson(this._meta.datasets.istqb)
-    ]);
+    if (!this._config) {
+      this._config = await fetchJson("./config.json");
+    }
 
-    const kirbyItems = flattenKirby(kirbyJson);
-    const topicItems = flattenISTQB(istqbJson);
+    const envCfg = this._config.datasets?.env;
+    const topicCfg = this._config.datasets?.topic;
+
+    if (!envCfg?.path || !envCfg?.flattener) {
+      throw new Error("ComboEngine: config.datasets.env invalide (path/flattener requis)");
+    }
+    if (!topicCfg?.path || !topicCfg?.flattener) {
+      throw new Error("ComboEngine: config.datasets.topic invalide (path/flattener requis)");
+    }
+
+    const envFlattener = selectFlattener(envCfg.flattener);
+    const topicFlattener = selectFlattener(topicCfg.flattener);
+
+    const [envJson, topicJson] = await Promise.all([fetchJson(envCfg.path), fetchJson(topicCfg.path)]);
+
+    const kirbyItems = envFlattener(envJson);
+    const topicItems = topicFlattener(topicJson);
 
     const combos = buildCartesianPool(kirbyItems, topicItems);
     this._pool = new RandomPool(combos);
@@ -93,10 +124,6 @@ export class ComboEngine {
     return this._pool ? this._pool.total() : 0;
   }
 
-  /**
-   * Tire un combo unique.
-   * @returns {{ meta: any, kirby: any, topic: any }}
-   */
   next() {
     if (!this._pool) throw new Error("ComboEngine: not initialized");
 
@@ -124,10 +151,8 @@ export class ComboEngine {
     };
   }
 
-  /**
-   * Reset manuel : efface localStorage + rebuild.
-   */
   async reset() {
+    // Reset manuel : efface la pool, puis rebuild depuis la config courante
     remove(STORAGE_KEY_POOL);
     await this.rebuild();
   }
