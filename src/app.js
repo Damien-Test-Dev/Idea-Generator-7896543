@@ -1,5 +1,7 @@
 // /src/app.js
 
+import { ComboEngine } from "./engine/comboEngine.js";
+
 function $(id) {
   const el = document.getElementById(id);
   if (!el) throw new Error(`Element introuvable: #${id}`);
@@ -15,7 +17,9 @@ const ui = {
 };
 
 let lastJsonText = "{}";
+let engine;
 
+/** UI helpers */
 function setStatus(message) {
   ui.status.textContent = message;
 }
@@ -34,13 +38,11 @@ function setCopyEnabled(enabled) {
 }
 
 async function copyToClipboard(text) {
-  // Voie moderne
   if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
     await navigator.clipboard.writeText(text);
     return;
   }
 
-  // Fallback (anciens navigateurs)
   const textarea = document.createElement("textarea");
   textarea.value = text;
   textarea.setAttribute("readonly", "true");
@@ -53,39 +55,37 @@ async function copyToClipboard(text) {
   document.body.removeChild(textarea);
 }
 
-function generateStubResult() {
-  // Stub temporaire : valide le pipeline UI + format JSON.
-  // À l’étape suivante, on remplacera ça par le vrai moteur (pool A×B + shuffle+pop + persistence).
-  return {
-    meta: {
-      generator: "combo-generator",
-      version: "0.1.0",
-      createdAt: new Date().toISOString(),
-      note: "Stub temporaire. Le tirage unique Kirby×Topic arrive à l’étape suivante.",
-    },
-    kirby: null,
-    topic: null,
-    status: "engine_not_initialized",
-    next: [
-      "Ajouter datasets Kirby et ISTQB",
-      "Aplatir (flatten) les sources",
-      "Construire la pool des combinaisons (A×B), mélanger, puis tirer sans répétition",
-      "Persister la pool restante dans localStorage",
-    ],
-  };
-}
+async function initEngine() {
+  engine = new ComboEngine();
 
-function init() {
-  setStatus("Prêt.");
-  setRemaining("—");
-  setOutput({});
+  setStatus("Initialisation du moteur…");
+  ui.btnGenerate.disabled = true;
   setCopyEnabled(false);
 
+  await engine.init();
+
+  setRemaining(String(engine.remaining()));
+  setStatus("Prêt. Pool chargée (sans répétition).");
+  ui.btnGenerate.disabled = false;
+}
+
+function wireEvents() {
   ui.btnGenerate.addEventListener("click", () => {
-    const result = generateStubResult();
-    setOutput(result);
-    setCopyEnabled(true);
-    setStatus("Résultat généré (stub). Prochaine étape : moteur + datasets + unicité.");
+    try {
+      const result = engine.next();
+      setOutput(result);
+      setCopyEnabled(true);
+      setRemaining(String(engine.remaining()));
+
+      if (engine.remaining() === 0) {
+        setStatus("Pool épuisée. Ajoute un bouton reset (étape suivante) ou recharge via reset moteur.");
+      } else {
+        setStatus("Combo généré. Unique garanti.");
+      }
+    } catch (err) {
+      console.error(err);
+      setStatus("Erreur lors du tirage. Vérifie la console.");
+    }
   });
 
   ui.btnCopy.addEventListener("click", async () => {
@@ -97,6 +97,25 @@ function init() {
       setStatus("Échec de copie (permission navigateur).");
     }
   });
+}
+
+async function init() {
+  // UI initial state
+  setStatus("Chargement…");
+  setRemaining("—");
+  setOutput({});
+  setCopyEnabled(false);
+
+  wireEvents();
+
+  try {
+    await initEngine();
+  } catch (err) {
+    console.error(err);
+    setStatus(
+      "Impossible d'initialiser le moteur. Lance la page via un serveur (Live Server / GitHub Pages), pas en file://."
+    );
+  }
 }
 
 init();
