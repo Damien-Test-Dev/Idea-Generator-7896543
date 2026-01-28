@@ -1,6 +1,7 @@
 // /src/app.js
 
 import { ComboEngine } from "./engine/comboEngine.js";
+import { clearAllAppStorage } from "./engine/storage.js";
 
 function $(id) {
   const el = document.getElementById(id);
@@ -12,13 +13,18 @@ const ui = {
   btnGenerate: $("btnGenerate"),
   btnCopy: $("btnCopy"),
   btnReset: $("btnReset"),
+  btnClearStorage: $("btnClearStorage"),
   output: $("output"),
   remaining: $("remaining"),
+  total: $("total"),
   status: $("status"),
+  appVersion: $("appVersion"),
 };
 
 let lastJsonText = "{}";
 let engine;
+
+const APP_VERSION = "1.0.0";
 
 /** UI helpers */
 function setStatus(message) {
@@ -27,6 +33,14 @@ function setStatus(message) {
 
 function setRemaining(value) {
   ui.remaining.textContent = value;
+}
+
+function setTotal(value) {
+  ui.total.textContent = value;
+}
+
+function setVersion(value) {
+  ui.appVersion.textContent = value;
 }
 
 function setOutput(obj) {
@@ -46,11 +60,14 @@ function setResetEnabled(enabled) {
   ui.btnReset.disabled = !enabled;
 }
 
+function setClearStorageEnabled(enabled) {
+  ui.btnClearStorage.disabled = !enabled;
+}
+
 function setBusy(isBusy) {
-  // Quand c'est busy, on évite les clicks concurrents
   setGenerateEnabled(!isBusy);
   setResetEnabled(!isBusy);
-  // Copier dépend du fait qu'on ait déjà un résultat, donc on ne l'active pas ici
+  setClearStorageEnabled(!isBusy);
 }
 
 async function copyToClipboard(text) {
@@ -73,6 +90,8 @@ async function copyToClipboard(text) {
 
 function refreshCounters() {
   setRemaining(String(engine.remaining()));
+  setTotal(String(engine.total()));
+
   if (engine.remaining() === 0) {
     setGenerateEnabled(false);
     setStatus("Pool épuisée. Fais Reset pour reconstruire une nouvelle pool.");
@@ -101,9 +120,7 @@ function wireEvents() {
       setCopyEnabled(true);
 
       refreshCounters();
-      if (engine.remaining() > 0) {
-        setStatus("Combo généré. Unique garanti.");
-      }
+      if (engine.remaining() > 0) setStatus("Combo généré. Unique garanti.");
     } catch (err) {
       console.error(err);
       setStatus("Erreur lors du tirage. Vérifie la console.");
@@ -138,12 +155,38 @@ function wireEvents() {
       setStatus("Reset impossible. Vérifie la console.");
     }
   });
+
+  ui.btnClearStorage.addEventListener("click", async () => {
+    try {
+      setStatus("Nettoyage du stockage local…");
+      setBusy(true);
+      setCopyEnabled(false);
+      setOutput({});
+
+      clearAllAppStorage();
+
+      // Rebuild complet
+      engine = new ComboEngine();
+      await engine.init();
+
+      setBusy(false);
+      setStatus("Stockage nettoyé. Pool reconstruite.");
+      refreshCounters();
+    } catch (err) {
+      console.error(err);
+      setBusy(false);
+      setStatus("Nettoyage impossible. Vérifie la console.");
+    }
+  });
 }
 
 async function init() {
+  setVersion(`v${APP_VERSION}`);
+
   // UI initial state
   setStatus("Chargement…");
   setRemaining("—");
+  setTotal("—");
   setOutput({});
   setCopyEnabled(false);
 
