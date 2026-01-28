@@ -36,3 +36,21 @@ export function remove(key) {
     return false;
   }
 }
+
+/**
+ * Efface toutes les clés de l'app (préfixées).
+ */
+export function clearAllAppStorage() {
+  try {
+    const keysToRemove = [];
+    for (let i = 0; i < localStorage.length; i++) {
+      const k = localStorage.key(i);
+      if (k && k.startsWith(PREFIX)) keysToRemove.push(k);
+    }
+    keysToRemove.forEach((k) => localStorage.removeItem(k));
+    return true;
+  } catch (err) {
+    console.warn("storage.clearAllAppStorage error:", err);
+    return false;
+  }
+}
