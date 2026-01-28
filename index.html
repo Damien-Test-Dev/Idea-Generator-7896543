@@ -3,10 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Combo Generator — Kirby × Topics</title>
+    <title>Combo Generator — Kirby × ISTQB</title>
     <meta
       name="description"
-      content="Génère des combinaisons uniques (sans répétition) entre un environnement Kirby et une notion (ISTQB ou autre)."
+      content="Génère des combinaisons uniques (sans répétition) entre un univers Kirby et une notion ISTQB, au format JSON prêt à copier."
     />
 
     <style>
@@ -58,6 +58,21 @@
         font-size: 18px;
         margin: 0 0 6px 0;
         letter-spacing: 0.2px;
+        display: flex;
+        gap: 10px;
+        align-items: baseline;
+        flex-wrap: wrap;
+      }
+
+      .version {
+        font-size: 12px;
+        color: var(--muted);
+        font-weight: 700;
+        letter-spacing: 0.35px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        padding: 3px 10px;
+        background: rgba(255, 255, 255, 0.06);
       }
 
       p {
@@ -116,7 +131,7 @@
 
       .meta {
         display: flex;
-        gap: 14px;
+        gap: 10px;
         flex-wrap: wrap;
         align-items: center;
         color: var(--muted);
@@ -173,20 +188,19 @@
         color: var(--muted);
         font-size: 12.5px;
       }
-
-      a {
-        color: inherit;
-      }
     </style>
   </head>
 
   <body>
-    <div class="app" role="application" aria-label="Combo Generator">
+    <div class="app" role="application" aria-label="Combo Generator Kirby × ISTQB">
       <header>
-        <h1>Combo Generator — Kirby × Topics</h1>
+        <h1>
+          Combo Generator — Kirby × ISTQB
+          <span class="version" id="appVersion">v—</span>
+        </h1>
         <p>
-          Objectif : générer une combinaison <strong>unique</strong> (sans répétition) entre un univers Kirby et une notion
-          (ISTQB aujourd’hui, finance demain), au format JSON prêt à copier.
+          Génère une combinaison <strong>unique</strong> (sans répétition) entre un univers Kirby et une notion ISTQB, au
+          format JSON prêt à copier.
         </p>
       </header>
 
@@ -196,10 +210,12 @@
             <button id="btnGenerate" type="button">Générer</button>
             <button id="btnCopy" type="button" disabled>Copier</button>
             <button id="btnReset" type="button">Reset</button>
+            <button id="btnClearStorage" type="button">Nettoyer stockage</button>
           </div>
 
           <div class="meta" aria-live="polite">
-            <span class="chip">Combos restants : <strong id="remaining">—</strong></span>
+            <span class="chip">Restants : <strong id="remaining">—</strong></span>
+            <span class="chip">Total : <strong id="total">—</strong></span>
             <span class="status" id="status">Prêt.</span>
           </div>
         </div>
@@ -211,8 +227,8 @@
       </main>
 
       <footer>
-        Astuce : l’unicité est garantie via une “pool” mélangée (shuffle + pop). L’état est persisté (localStorage) pour
-        éviter les répétitions même après rechargement.
+        “Reset” reconstruit une nouvelle pool de tirage. “Nettoyer stockage” efface l’état local (utile en cas de state
+        corrompu).
       </footer>
     </div>
 
