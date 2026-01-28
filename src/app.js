@@ -11,6 +11,7 @@ function $(id) {
 const ui = {
   btnGenerate: $("btnGenerate"),
   btnCopy: $("btnCopy"),
+  btnReset: $("btnReset"),
   output: $("output"),
   remaining: $("remaining"),
   status: $("status"),
@@ -37,6 +38,21 @@ function setCopyEnabled(enabled) {
   ui.btnCopy.disabled = !enabled;
 }
 
+function setGenerateEnabled(enabled) {
+  ui.btnGenerate.disabled = !enabled;
+}
+
+function setResetEnabled(enabled) {
+  ui.btnReset.disabled = !enabled;
+}
+
+function setBusy(isBusy) {
+  // Quand c'est busy, on évite les clicks concurrents
+  setGenerateEnabled(!isBusy);
+  setResetEnabled(!isBusy);
+  // Copier dépend du fait qu'on ait déjà un résultat, donc on ne l'active pas ici
+}
+
 async function copyToClipboard(text) {
   if (navigator.clipboard && typeof navigator.clipboard.writeText === "function") {
     await navigator.clipboard.writeText(text);
@@ -55,18 +71,26 @@ async function copyToClipboard(text) {
   document.body.removeChild(textarea);
 }
 
+function refreshCounters() {
+  setRemaining(String(engine.remaining()));
+  if (engine.remaining() === 0) {
+    setGenerateEnabled(false);
+    setStatus("Pool épuisée. Fais Reset pour reconstruire une nouvelle pool.");
+  }
+}
+
 async function initEngine() {
   engine = new ComboEngine();
 
   setStatus("Initialisation du moteur…");
-  ui.btnGenerate.disabled = true;
+  setBusy(true);
   setCopyEnabled(false);
 
   await engine.init();
 
-  setRemaining(String(engine.remaining()));
+  setBusy(false);
   setStatus("Prêt. Pool chargée (sans répétition).");
-  ui.btnGenerate.disabled = false;
+  refreshCounters();
 }
 
 function wireEvents() {
@@ -75,11 +99,9 @@ function wireEvents() {
       const result = engine.next();
       setOutput(result);
       setCopyEnabled(true);
-      setRemaining(String(engine.remaining()));
 
-      if (engine.remaining() === 0) {
-        setStatus("Pool épuisée. Ajoute un bouton reset (étape suivante) ou recharge via reset moteur.");
-      } else {
+      refreshCounters();
+      if (engine.remaining() > 0) {
         setStatus("Combo généré. Unique garanti.");
       }
     } catch (err) {
@@ -97,6 +119,25 @@ function wireEvents() {
       setStatus("Échec de copie (permission navigateur).");
     }
   });
+
+  ui.btnReset.addEventListener("click", async () => {
+    try {
+      setStatus("Reset en cours…");
+      setBusy(true);
+      setCopyEnabled(false);
+      setOutput({});
+
+      await engine.reset();
+
+      setBusy(false);
+      setStatus("Reset terminé. Nouvelle pool prête.");
+      refreshCounters();
+    } catch (err) {
+      console.error(err);
+      setBusy(false);
+      setStatus("Reset impossible. Vérifie la console.");
+    }
+  });
 }
 
 async function init() {
@@ -112,6 +153,7 @@ async function init() {
     await initEngine();
   } catch (err) {
     console.error(err);
+    setBusy(false);
     setStatus(
       "Impossible d'initialiser le moteur. Lance la page via un serveur (Live Server / GitHub Pages), pas en file://."
     );
