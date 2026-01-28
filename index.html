@@ -195,6 +195,7 @@
           <div class="btns">
             <button id="btnGenerate" type="button">Générer</button>
             <button id="btnCopy" type="button" disabled>Copier</button>
+            <button id="btnReset" type="button">Reset</button>
           </div>
 
           <div class="meta" aria-live="polite">
@@ -210,12 +211,11 @@
       </main>
 
       <footer>
-        Astuce : l’unicité sera garantie via une “pool” mélangée (shuffle + pop). L’état sera persisté (localStorage) pour
+        Astuce : l’unicité est garantie via une “pool” mélangée (shuffle + pop). L’état est persisté (localStorage) pour
         éviter les répétitions même après rechargement.
       </footer>
     </div>
 
-    <!-- Le JS arrive à l’étape suivante -->
     <script type="module" src="./src/app.js"></script>
   </body>
 </html>
