@@ -1,0 +1,19 @@
+{
+  "version": "1",
+  "datasets": {
+    "env": {
+      "id": "kirby",
+      "path": "./datasets/kirby.json",
+      "flattener": "kirby"
+    },
+    "topic": {
+      "id": "istqb",
+      "path": "./datasets/istqb.json",
+      "flattener": "istqb"
+    }
+  },
+  "output": {
+    "metaVersion": "1.0.0",
+    "format": "kirby_x_topic"
+  }
+}
